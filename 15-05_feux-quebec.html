@@ -1,0 +1,244 @@
+<!-- Carte pour Radio-Canada : http://ici.radio-canada.ca/special/cartes/15-05_carte-feux.html -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+Les feux de forêt au Québec de 2008 à 2014
+        </title>
+
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+        <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
+
+        <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" type="text/css" />
+        <link rel="stylesheet" href="http://academy.cartodb.com/css/cdbui.css" type="text/css" />
+
+        <style type="text/css">
+            html, body, #map {
+                height: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            p {
+                padding: 10px 10px;
+                font-family: Helvetica, Arial;
+                font-size: 11px;
+                color: #444;
+            }
+            #cartocss {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+            #sql {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+            }
+            #category {
+                right: 10px;
+                background: rgba(255,255,255,0.9);
+                border-radius: 5px;
+                padding: 10px;
+                border: 1px solid #999;
+                width: 110px;
+            }
+            .layer_selector {
+                background: rgba(255,255,255,0.9);
+                border-radius: 5px;
+                padding: 0;
+                border: 1px solid #999;
+                width: 110px;
+            }
+            
+            .layer_selector > p {
+                padding: 1px 10px;
+                border-bottom: 1px solid #999;
+            }
+            
+            .layer_selector ul {
+                padding: 0; margin: 0;
+                list-style-type: none;
+            }
+            .layer_selector li {
+                padding: 2px 10px;
+                font-family: Helvetica, Arial;
+                font-size: 11px;
+                text-align: center;
+                color: #444;
+                cursor: pointer;
+            }
+            .layer_selector li:not(:last-child) {
+                border-bottom: 1px solid #999;
+            }
+            .layer_selector li:hover {
+                background-color: #F0F0F0;
+                cursor: pointer;
+            }
+            .layer_selector li.sql_selected,
+            .layer_selector li.cartocss_selected {
+                background-color: #A6CEE3;
+            }
+            </style>
+
+            <style type="cartocss/html" id="bubble">
+
+#table_1505_feuxforets{
+  marker-fill-opacity: 0.9;
+  marker-line-color: #FFF;
+  marker-line-width: 0.5;
+  marker-line-opacity: 1;
+  marker-placement: point;
+  marker-multi-policy: largest;
+  marker-type: ellipse;
+/*  marker-fill: #B81609;*/
+  marker-allow-overlap: true;
+  marker-clip: false;
+}
+
+#table_1505_feuxforets [ sup_ha <= 107004.1] {
+   marker-width: 25.0;
+}
+#table_1505_feuxforets [ sup_ha <= 3799.4] {
+   marker-width: 22.8;
+}
+#table_1505_feuxforets [ sup_ha <= 665.2] {
+   marker-width: 20.6;
+}
+#table_1505_feuxforets [ sup_ha <= 254] {
+   marker-width: 18.3;
+}
+#table_1505_feuxforets [ sup_ha <= 97.4] {
+   marker-width: 16.1;
+}
+#table_1505_feuxforets [ sup_ha <= 43.1] {
+   marker-width: 13.9;
+}
+#table_1505_feuxforets [ sup_ha <= 21.1] {
+   marker-width: 11.7;
+}
+#table_1505_feuxforets [ sup_ha <= 12.8] {
+   marker-width: 9.4;
+}
+#table_1505_feuxforets [ sup_ha <= 6.2] {
+   marker-width: 7.2;
+}
+#table_1505_feuxforets [ sup_ha <= 2.9] {
+   marker-width: 5.0;
+}
+
+#table_1505_feuxforets[cause="foudre"] {
+   marker-fill: #6d6d6d;
+}
+#table_1505_feuxforets[cause="humaine"] {
+   marker-fill: #B81609;
+}
+
+            </style>
+
+    </head>
+    <body>
+        <div id="map"></div>
+
+<div id="sql" class="layer_selector">
+    <p><strong>Filtrez par année</strong></p>
+<!--  IMPORTANT D'AVOIR espace dans data=" WHERE sinon erreurs.  -->  
+    <ul>
+        <li data="" data-type="sql">2008-2014</li>
+        <li data=" WHERE annee = 2008" data-type="sql">2008</li>
+        <li data=" WHERE annee = 2009" data-type="sql">2009</li>
+        <li data=" WHERE annee = 2010" data-type="sql">2010</li>
+        <li data=" WHERE annee = 2011" data-type="sql">2011</li>
+        <li data=" WHERE annee = 2012" data-type="sql">2012</li>
+        <li data=" WHERE annee = 2013" data-type="sql">2013</li>
+        <li data=" WHERE annee = 2014" data-type="sql">2014</li>
+    </ul>
+</div>
+
+<div id="category" class='cartodb-legend category'> 
+    <p><strong>Cause</strong></p>
+<ul>
+  <li>
+    <div class="bullet" style="background: #6d6d6d"></div>Foudre
+  </li>
+  <li>
+    <div class="bullet" style="background: #B81609"></div>Humaine
+  </li>
+</ul>
+</div>
+
+        <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js" type="text/javascript"></script>
+        <script type="text/javascript">
+
+window.onload = function () {
+
+function createSelector(layer) {
+    var condition = ""; 
+    var $options = $(".layer_selector").find("li");
+    $options.click(function(e) {
+        var $li = $(e.target);
+        var selected = $li.attr('data');
+        var type = $li.data('type'); 
+
+        if (type === "cartocss") { 
+            $options.removeClass('cartocss_selected');
+            if (selected !== "bubble") {
+                $li.addClass('cartocss_selected');                            
+            }
+            condition = $('#'+selected).text();
+            layer.setCartoCSS(condition);
+        } 
+        else { 
+            $options.removeClass('sql_selected');
+            if (selected !== "") {
+                $li.addClass('sql_selected');
+            }
+            layer.setSQL("SELECT * FROM " + tableName + selected);
+        }
+    });
+}
+
+    var tableName = "table_1505_feuxforets";
+
+    var layerSource = {
+            user_name: 'hoedic', 
+            type: 'cartodb',
+            cartodb_logo: false,
+            sublayers: [{ 
+                sql: "SELECT * FROM " + tableName,
+                cartocss: $("#bubble").text() 
+            }]
+        }
+
+    var sublayer;
+
+    var map_object = new L.Map('map', {
+        center: [48.5,-73.125],
+        zoom: 6,
+        scrollWheelZoom: false
+    });
+
+
+    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map_object);
+
+
+    cartodb.createLayer(map_object,layerSource)
+        .addTo(map_object)
+        .done(function(layer) {
+            sublayer = layer.getSubLayer(0);
+            createSelector(sublayer); 
+        })
+        .error(function(err) {
+            console.log("error: " + err);
+        });
+
+        }
+
+
+        </script>
+    </body>
+</html>
