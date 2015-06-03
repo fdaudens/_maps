@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+  <link rel="shortcut icon" href="https://d7254683f51e43ade826c755165b80f4b3d4bf6a-www.googledrive.com/host/0B9-heND9C-WsSDk3MVhYMGRGTFU" type="image/x-icon">
+  <link rel="icon" href="https://d7254683f51e43ade826c755165b80f4b3d4bf6a-www.googledrive.com/host/0B9-heND9C-WsSDk3MVhYMGRGTFU" type="image/x-icon">
+  
+  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
+  <!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.ie.css" />
+  <![endif]-->
+  <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
+  
+  <style>
+    html, body {width:100%; height:100%; padding: 0; margin: 0;}
+    #map { width: 100%; height:100%; background: black;}
+    #menu { position: absolute; top: 25px; right: 10px; width: 400px; height:60px; background: transparent; z-index:10;}
+    #menu a {
+      margin: 5px 10px 0 0;
+      float: right;
+      vertical-align: baseline;
+      width: 100px;
+      padding: 10px;
+      text-align: center;
+      font: bold 11px "Helvetica",Arial;
+      line-height: normal;
+      color: #555;
+      border-radius: 4px;
+      border: 1px solid #777777;
+      background: #ffffff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    #menu a.selected,
+    #menu a:hover {
+      color: #F84F40;
+    }
+  </style>
+
+<script type="infowindow/html" id="infowindow_template">
+  <div class="cartodb-popup">
+    <a href="#close" class="cartodb-popup-close-button close">x</a>
+     <div class="cartodb-popup-content-wrapper">
+       <div class="cartodb-popup-content">
+         <p><strong>{{nom}}</strong></p>
+         <p>{{adresse}}</p>
+       </div>
+     </div>
+     <div class="cartodb-popup-tip-container"></div>
+  </div>
+</script>
+
+  <script>
+  var map;
+
+  function init(){
+    // initiate leaflet map
+    var lon = -73.6778369140625;
+    var lat = 45.5486468234261;
+    var total = 500; // le nombre de fiches par défaut au chargement
+    var map;
+    var layerUrl = 'https://fdaudens.cartodb.com/api/v2/viz/c034007a-fd98-11e4-88e4-0e018d66dc29/viz.json';
+    var sublayers = [];
+    var css = $("#cartocss").html();
+    var query;
+
+    detectUserLocation();
+    map = new L.Map('map', {
+      center: [lat, lon],
+      zoom: 11
+    });
+
+    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://cartodb.com/attributions">CartoDB</a>'
+    }).addTo(map);
+
+    cartodb.createLayer(map, layerUrl, {
+      cartodb_logo: false
+    })
+      .addTo(map)
+      .on('done', function(layer) {
+        var sublayers = layer.getSubLayer(0);
+        sublayers.push(sublayer);
+        sublayers.infowindow.set('template', $('#infowindow_template').html());
+        
+    });
+
+    function getQuery() {
+      query = "SELECT " +
+        "the_geom_webmercator," +
+        "ST_X(ST_Centroid(the_geom)) as longitude," +
+        "ST_Y(ST_Centroid(the_geom)) as latitude," +
+        "nom," +
+        "cartodb_id," +
+        "ST_Distance(the_geom::geography," +
+        "ST_PointFromText('POINT(" + lon + " " + lat + ")', 4326)::geography) AS distance " +
+        "FROM table_1505_glacesmaster " +
+        "ORDER BY distance " +
+        "ASC " +
+        "LIMIT " + total;
+    };
+// The 4326 is the SRID of the WGS84 projection.
+
+    // credit: http://html5doctor.com/finding-your-position-with-geolocation/
+    function detectUserLocation(){
+      if (navigator.geolocation) {
+        var timeoutVal = 10 * 1000 * 1000;
+        navigator.geolocation.watchPosition(
+          mapToPosition,
+          alertError,
+          { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+        );
+      }
+      else {
+        alert("Geolocation is not supported by this browser");
+      }
+
+      function alertError(error) {
+        var errors = {
+          1: 'Permission denied',
+          2: 'Position unavailable',
+          3: 'Request timeout'
+        };
+        alert("Error: " + errors[error.code]);
+      }
+    }
+
+    function updateQuery() {
+      getQuery();
+      console.log(query);
+      sublayers[0].set({
+        sql: query,
+        cartocss: css
+      });
+    }
+
+    function mapToPosition(position) {
+      lon = position.coords.longitude;
+      lat = position.coords.latitude;
+      // map.setView(new L.LatLng(lat,lon), 12); //ajuste la vue par défaut avant l'action
+      new L.CircleMarker([lat,lon],{radius: 10}).addTo(map);
+      updateQuery();
+    }
+
+    $('.button').click(function() {
+      $('.button').removeClass('selected'); $(this).addClass('selected');
+      total = $(this).attr('id');
+      map.setView(new L.LatLng(lat,lon), 14);
+      updateQuery();
+    })
+  }
+  </script>
+</head>
+
+<body onload="init()">
+  <div id='map'></div>
+  <div id='menu'>
+    <a href="#total" id="500" value=total class="button all selected">Zoomer pr&egrave;s de moi</a>
+<!--     <a href="#5" id="5" value=5 class="button 5 selected">Afficher les 5 plus pr&egrave;s</a> -->
+  </div>
+</body>
+</html>
