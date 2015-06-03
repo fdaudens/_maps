@@ -69,7 +69,8 @@
     detectUserLocation();
     map = new L.Map('map', {
       center: [lat, lon],
-      zoom: 11
+      zoom: 11,
+      scrollWheelZoom: false
     });
 
     L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
