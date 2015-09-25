@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<head>
+  <script src="lib/d3.min.js"></script>
+  <script src="lib/d3-legend.min.js"></script>  
+  <script src="lib/d3-tip.js"></script>
+  <script src="lib/queue.min.js"></script>
+  <script src="lib/topojson.min.js"></script>
+</head>  
+
+<style>
+  #figure {
+    background-color: #fff;
+    width: 100%;
+  }
+
+  #carte {
+    width: 100%;
+    height: 100%;
+  }
+  /* Webfont:  Rubrik-Medium */
+@font-face {
+    font-family:'RubrikM';
+  font-style:normal;
+  font-weight:400;
+  src:  url(http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.eot);
+  src:  url(http://www.r-c.ca/_font/Rubrik-Medium.eot?#iefix) format("embedded-opentype"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.woff) format("woff"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.svg#Rubrik-Medium) format("svg"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.ttf) format("truetype")
+}
+    
+/* Webfont:  Rubrik-Light */
+@font-face {
+    font-family:'RubrikLt';
+  font-style:normal;
+  font-weight:400;
+  src:  url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.eot);
+  src:  url(http://www.r-c.ca/_font/Rubrik-Light.eot?#iefix) format("embedded-opentype"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.woff) format("woff"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.svg#Rubrik-Light) format("svg"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.ttf) format("truetype")
+}
+@font-face {
+    font-family: 'RubrikMd';
+    font-style: normal;
+    font-weight: normal;
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.eot'); /* IE9 Compat Modes */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.eot?#iefix'); /* IE6-IE8 */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.woff'); /* Modern Browsers */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.svg#Rubrik-Medium'); /* Legacy iOS */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.ttf'); /* Safari, Android, iOS */
+}
+  h1 {
+    font-size: 20px;
+    margin: 10px;
+    font-family: RubrikLT;
+  }
+
+  p {
+    font-size: 12px;
+    margin: 11px 0 0 0;
+    font-family: RubrikLT;
+  }
+  .data{
+    font-family: RubrikMd;
+    font-size: 14px;
+    font-weight: bold;
+}
+.provinces {
+  fill: none;
+  stroke: #bebebe;
+/* stroke-linejoin: round;
+*/}
+
+  .d3-tip { 
+    line-height: 1;
+    font-weight: normal;
+    font-family: Arial;
+    padding: 5px;
+    background-color: rgba(255,255,255,0.5);
+    color: black;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-left: 10px;
+    margin-top: 10px;
+    width:200px;
+    border: 1px solid #ccc;
+}
+
+.q0-9 { fill:rgb(247,251,255); }
+.q1-9 { fill:rgb(222,235,247); }
+.q2-9 { fill:rgb(198,219,239); }
+.q3-9 { fill:rgb(158,202,225); }
+.q4-9 { fill:rgb(107,174,214); }
+.q5-9 { fill:rgb(66,146,198); }
+.q6-9 { fill:rgb(33,113,181); }
+.q7-9 { fill:rgb(8,81,156); }
+.q8-9 { fill:rgb(8,48,107); }
+
+</style>
+
+<body>
+<h1>Où a-t-on le plus googlé le mot « niqab »?</12>
+ <p>Du 18 au 25 septembre 2015, en volume relatif; la province la plus élevée ayant un taux de 100.<br/> Passez votre souris sur les provinces pour plus d'information.</p>
+<div class="figure">
+<svg id="carte"></svg>
+</div>
+</body>
+
+<script type="text/javascript">
+
+var width = 635,
+    height = 357;
+    margin = {top: 10, right: 10, bottom: 10, left: 10};
+
+
+var quantize = d3.scale.quantize()
+    .domain([0, 100])
+    .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
+
+// var projection = d3.geo.albers()
+//     .scale(600)
+//     .center([7, 55.4])
+//     .translate([width / 2, height / 2]);
+
+var projection = d3.geo.conicConformal()
+    .scale(700)
+    .center([7, 57.4])
+    .rotate([100, 0])
+  //  .parallels([50, 60])
+    .translate([width / 2, height / 2]);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("#carte")
+    .attr("viewBox", [
+        margin.left,
+        margin.top,
+        (width+margin.left),
+        (height+margin.bottom)
+      ].join(" "))
+
+queue()
+    .defer(d3.json, "data/provincesCanada.json")
+    .defer(d3.csv, "data/data.csv")
+    .await(ready);
+
+function ready(error, canada, d) //définir nom de fonction qui va conditionner l'Appel geojson canada.objects....)
+ {
+  if (error) throw error;
+
+var rateById = d3.map();
+
+d.forEach(function(d) { rateById.set(d.id, +d.rate); });
+
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-5, 0])
+  .html(function(d) {
+    return "<span class='data'>" + d.properties.nom + "</span><br/><p>Taux de recherche : " + rateById.get(d.id) + " %</p>";
+    // + "\t" 
+    // + year.values + "</strong><br/><span style='color:#fff'>" + value.values + " députés élus"
+  })
+  svg.call(tip);
+
+  svg.append("g")
+      .attr("class", "counties")
+    .selectAll("path")
+      .data(topojson.feature(canada, canada.objects.provincesCanada).features)
+    .enter().append("path")
+      .attr("class", function(d) { return quantize(rateById.get(d.id)); }) // faudrait mettre un if else pour ne pas afficher territoires...
+      .attr("d", path)
+        .on('mouseover', function(d, i) {
+           tip.show(d,i)
+          .style("top", (100)+"px")
+          .style("left",(0)+"px")
+        })
+        .on('mouseout',  function(d, i) {
+          tip.hide(d,i);
+        });
+
+  svg.append("path")
+      .datum(topojson.mesh(canada, canada.objects.provincesCanada, function(a, b) { return a !== b; }))
+      .attr("class", "provinces")
+      .attr("d", path);
+
+  svg.append("path")
+      .datum(topojson.mesh(canada, canada.objects.provincesCanada, function(a, b) { return a === b; }))
+      .attr("class", "provinces")
+      .attr("d", path);
+}
+
+d3.select(self.frameElement).style("height", height + "px");
+
+</script>
+</html>
