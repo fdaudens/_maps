@@ -1,2 +1,2 @@
-# carto
+# Maps
 Codes en cartographie
