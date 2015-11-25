@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<head>
+  <script src="lib/d3.min.js"></script>
+  <script src="lib/d3-legend.min.js"></script>  
+  <script src="lib/d3-tip.js"></script>
+  <script src="lib/queue.min.js"></script>
+  <script src="lib/topojson.min.js"></script>
+</head>  
+
+<style>
+  #figure {
+    background-color: #fff;
+    width: 100%;
+  }
+
+  #carte {
+    width: 100%;
+    height: 100%;
+  }
+ svg {
+  background: #eee;
+} 
+  /* Webfont:  Rubrik-Medium */
+@font-face {
+    font-family:'RubrikM';
+  font-style:normal;
+  font-weight:400;
+  src:  url(http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.eot);
+  src:  url(http://www.r-c.ca/_font/Rubrik-Medium.eot?#iefix) format("embedded-opentype"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.woff) format("woff"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.svg#Rubrik-Medium) format("svg"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.ttf) format("truetype")
+}
+    
+/* Webfont:  Rubrik-Light */
+@font-face {
+    font-family:'RubrikLt';
+  font-style:normal;
+  font-weight:400;
+  src:  url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.eot);
+  src:  url(http://www.r-c.ca/_font/Rubrik-Light.eot?#iefix) format("embedded-opentype"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.woff) format("woff"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.svg#Rubrik-Light) format("svg"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.ttf) format("truetype")
+}
+@font-face {
+    font-family: 'RubrikMd';
+    font-style: normal;
+    font-weight: normal;
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.eot'); /* IE9 Compat Modes */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.eot?#iefix'); /* IE6-IE8 */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.woff'); /* Modern Browsers */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.svg#Rubrik-Medium'); /* Legacy iOS */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.ttf'); /* Safari, Android, iOS */
+}
+  h1 {
+    font-size: 20px;
+    margin: 10px;
+    font-family: RubrikLT;
+  }
+
+  p {
+    font-size: 12px;
+    margin: 11px 0 0 0;
+    font-family: RubrikLT;
+  }
+  .data{
+    font-family: RubrikMd;
+    font-size: 14px;
+    font-weight: bold;
+}
+.provinces {
+  fill: none;
+  stroke: #bebebe;
+/* stroke-linejoin: round;
+*/}
+.source {
+    font-size: 10px;
+}
+
+.place,
+.place-label {
+  fill: #6d6d6d;
+  fill-opacity: .5;
+  font-size: 10px;
+  text-anchor: middle;
+}
+</style>
+
+<body>
+<h1>Quelles villes accueilleront des réfugiés?</12>
+ <p>Voici les 36 communautés sélectionnées par le gouvernement canadien.</p>
+<div class="figure">
+<svg id="carte"></svg>
+</div>
+<div class="source"><p>Source : Immigration Canada</a></p></div>
+</body>
+
+<script type="text/javascript">
+
+var width = 635,
+    height = 357;
+    margin = {top: 10, right: 10, bottom: 10, left: 10};
+
+var zoom = d3.behavior.zoom()
+    .scaleExtent([1, 3])
+    .on("zoom", zoomed);
+
+var projection = d3.geo.conicConformal()
+    .scale(800)
+    .center([9, 54.4])
+    .rotate([100, 0])
+  //  .parallels([50, 60])
+    .translate([width / 2, height / 2]);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("#carte")
+    .attr("viewBox", [
+        margin.left,
+        margin.top,
+        (width+margin.left),
+        (height+margin.bottom)
+      ].join(" "))
+
+// ajout fonction zoom
+
+var g = svg.append("g");
+
+svg
+    .call(zoom)
+    .call(zoom.event);
+
+d3.json("data/convert.json", function(json) {
+
+  g.append("g")
+      .attr("class", "provinces")
+    .selectAll("path")
+      .data(json.features)
+        .enter()
+        .append("path")
+          .attr("opacity", ".8")
+          .attr("d", path)
+          .style("fill", "#bebebe");
+
+          //Load in cities data
+          d3.csv("data/villes.csv", function(data) {
+
+var tip = d3.tip()
+  .attr('class', 'place-label')
+  .offset([-1, 0])
+  .html(function(d) {
+    return "<span class='data'>" + d.ville + "</p>" ;
+  })
+  g.call(tip);
+
+            //Create a circle for each city
+            g.selectAll("circle")
+               .data(data)
+               .enter()
+               .append("circle")
+               .attr("cx", function(d) {
+                   //[0] returns the first coordinate (x) of the projected value
+                 return projection([d.longitude, d.latitude])[0];
+               })
+               .attr("cy", function(d) {
+                   //[1] returns the second coordinate (y) of the projected value
+                 return projection([d.longitude, d.latitude])[1];
+               })
+               .attr("r", 3)
+               .style("fill", "#cc0000")
+               .style("opacity", 0.75)              
+               .on('mouseover', function(d, i) {
+                tip.show(d,i)
+        })
+              .on('mouseout',  function(d, i) {
+                tip.hide(d,i);
+        });
+
+});
+})
+
+function zoomed() {
+  g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
+
+</script>
+</html>
