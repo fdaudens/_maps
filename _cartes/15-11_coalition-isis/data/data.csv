@@ -1,0 +1,17 @@
+pays,paysEn,niveau,actionIrak,actionSyrie,type
+Russie,Russia,6,Oui,Oui,
+Belgique,Belgium,6,Oui,Non,"Frappes aériennes, aide humanitaire"
+Canada,Canada,6,Oui,Oui,
+Australie,Australia,6,Oui,Oui,
+Danemark,Denmark,6,Oui,Non,
+Royaume-Uni,United Kingdom,6,Oui,Non,
+Arabie saoudite,Saudi Arabia,6,Non,Oui,
+Turquie,Turkey,6,Oui,Oui,
+Jordanie,Jordan,6,Oui,Oui,"Frappes aériennes"
+France,France,6,Oui,Oui,
+Pays-Bas,Netherlands,6,Oui,Non,"Frappes aériennes, soutien logistique, formation"
+Émirats arabes unis,United Arab Emirates,6,Non,Oui,"Frappes aériennes"
+Bahreïn,Bahrain,6,Non,Oui,"Frappes aériennes"
+Allemagne,Germany,5,Non,Non,
+États-Unis,United States of America,6,Oui,Oui,
+Iran,Iran,5,Oui,Oui,"Livraison d'armes et d'équipement, aide financière et humanitaire au régime syrien"
