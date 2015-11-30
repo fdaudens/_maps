@@ -26,14 +26,7 @@ var width = 635,
     centered;
 
 var color = d3.scale.quantize()
-    .range(['#6d6d6d','#cc0000']);
-
-// var projection = d3.geo.conicConformal()
-//     .scale(100)
-//     .center([0,0])
-//     .rotate([100, 0])
-//   //  .parallels([50, 60])
-//     .translate([width / 2, height / 2]);
+    .range(['#6d6d6d','#e06666','#cc0000']);
 
 var projection = d3.geo.mercator()
                .center([5,35])
@@ -59,15 +52,6 @@ svg.append("rect")
 
 var g = svg.append("g");
 
-// **** données ****
-
-// queue()
-//     .defer(d3.json, "data/provincesCanada.json")
-//     .defer(d3.csv, "data/data.csv")
-//     .await(ready);
-
-// function ready(error, data, json) 
-//  {
 d3.csv ("data/data.csv", function(error, data) {
 
  if (error) throw error;
@@ -83,30 +67,24 @@ d3.json("data/countries.json", function(json) {
             console.log(json)
 
          for (var i = 0; i < data.length; i++) {
-        
-            //Grab country name (.countryCode est le nom de la colonne dans le csv)
+
             var pays = data[i].paysEn;
             
-            //Grab data value, and convert from string to float
             var dataValue = +data[i].niveau;
             var dataValue2 = data[i].pays;
              var dataValue3 = data[i].type;
-            //Find the corresponding country inside the GeoJSON
-            for (var j = 0; j < json.features.length; j++) {
+
+             for (var j = 0; j < json.features.length; j++) {
             
-              //We'll check the official ISO country code
               var paysJson = json.features[j].properties.ADMIN;
         
               if (pays == paysJson) {
 
-                //Copy the data value into the GeoJSON
                 json.features[j].properties.niveau = dataValue;
                 json.features[j].properties.pays = dataValue2;
                 json.features[j].properties.type = dataValue3;
-                // json.features[j].properties.legis = dataValue2;
-                
-                //Stop looking through the JSON
-                break;
+   
+                  break;
                 
               }
             }   
@@ -121,7 +99,7 @@ var tip = d3.tip()
   g.call(tip);
 
   g.append("g")
-      .attr("class", "provinces")
+      .attr("class", "pays")
     .selectAll("path")
       .data(json.features)
         .enter()
@@ -172,7 +150,7 @@ var legendLinear = d3.legend.color()
 				  .shapeWidth(5)
                   .shape("circle")
 				  .orient('vertical')
-				  .labels(["Implication indirecte", "Implication directe"])
+				  .labels(["Irak et Syrie","Implication indirecte", "Implication directe"])
 				  .scale(color);
 
 d3.select("#legende")  .attr("font-size", "11px").call(legendLinear)
