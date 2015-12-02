@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Choropleth avec Voronoï des stations de Bixi à Montréal</title>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<style>
+@font-face {
+    font-family:'RubrikLt';
+  font-style:normal;
+  font-weight:400;
+  src:  url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.eot);
+  src:  url(http://www.r-c.ca/_font/Rubrik-Light.eot?#iefix) format("embedded-opentype"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.woff) format("woff"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.svg#Rubrik-Light) format("svg"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.ttf) format("truetype")
+}
+@font-face {
+    font-family: 'RubrikMd';
+    font-style: normal;
+    font-weight: normal;
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.eot'); /* IE9 Compat Modes */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.eot?#iefix'); /* IE6-IE8 */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.woff'); /* Modern Browsers */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.svg#Rubrik-Medium'); /* Legacy iOS */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.ttf'); /* Safari, Android, iOS */
+}
+  h1 {
+    font-size: 20px;
+    margin: 10px;
+    font-family: RubrikLT;
+  }
+  p {
+    font-size: 14px;
+    margin: 11px 0 0 0;
+    font-family: RubrikLT;
+  }
+  .data{
+    font-family: RubrikMD;
+    font-size: 12px;
+}
+#map {
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:100%;
+}
+#selected {
+  width:80%;
+    position:static;
+  background-color: #FFF;
+  opacity: 0.8;
+  border-radius: 2px;
+  padding: 10px 10px 0 10px;
+}
+#selected {
+  bottom: 10px;
+  left: 10px;
+/*  height: 60px;*/
+}
+
+#selected h1 {
+  margin: 0px;
+  line-height: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (min-width: 480px) {
+  .selections .content {
+    display: block;
+  }
+  .selections .show {
+    display: none;
+  }
+}
+.hidden .content,
+.visible .show {
+  display: none;
+}
+
+.hidden .show,
+.visible .content {
+  display: block;
+}
+
+@media (max-width: 480px) {
+  #selected {
+    box-sizing: border-box;
+    width: 80%;
+  }
+}
+
+</style>
+</head>
+<body>
+  <div id="map"></div>    
+<div id='selected'>
+<h1>Avez-vous beaucoup de Bixi autour de vous?</h1>
+<p>Cette carte (voronoï, pour les intimes) positionne toutes les stations Bixi en 2015 et calcule l'aire de chacune relativement à la position des autres autour d'elles. Plus un polygone est foncé, plus le nombre de vélos au kilomètre carré à cette station est élevé.</p>
+</div>
+  <script>
+
+var limite1 = L.latLng(45.413033,-73.676891),
+    limite2 = L.latLng(45.60359,-73.477077),
+    bounds = L.latLngBounds(limite1, limite2);
+
+var map = L.map('map',{zoomControl: false,maxBounds: bounds}).setView([45.543782, -73.577867], 13);
+;
+      
+//   //load a tile layer
+  L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png',
+    {
+      attribution: '<a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Data by <a href="https://montreal.bixi.com/data/bikeStations.xml">Bixi</a>',
+      maxZoom: 17,
+      minZoom: 13,
+    }).addTo(map);
+          
+  var voronoi = $.getJSON("data/bixi2.json",function(json){
+    L.geoJson( json, {
+      style: function(feature){
+        var fillColor,
+        veloSuperf = feature.properties.veloSuperf;
+        if ( veloSuperf > 0.00169070 ) fillColor = "#045a8d";
+        else if ( veloSuperf > 0.00025790 ) fillColor = "#2b8cbe";
+        else if ( veloSuperf > 0.00014770 ) fillColor = "#74a9cf";
+        else if ( veloSuperf > 0.00006810 ) fillColor = "#a6bddb";
+        else if ( veloSuperf > 0.00001540 ) fillColor = "#d0d1e6";
+        else if ( veloSuperf > 0 ) fillColor = "#f1eef6";
+        else fillColor = "#bebebe";  // no data
+        return { color: "#bebebe", weight: 1, fillColor: fillColor, fillOpacity: .8 };
+      },
+      onEachFeature: function( feature, layer ){
+        layer.bindPopup( "<p class='data'><strong>Station la plus proche :</strong> " + feature.properties.name + "<br/>" + feature.properties.veloSuperf + " vélos/km2</p>" )
+      }
+    }).addTo(map);
+
+ 
+ var stations = $.getJSON("data/bixi-csv.json",function(data){
+var point = {
+    radius: 3,
+    fillColor: "#8d3404",
+    color: "#bebebe",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 1
+};
+    L.geoJson(data,{
+        pointToLayer: function(feature,latlng){
+        var circle = L.circleMarker(latlng, point);
+        circle.bindPopup("<p class='data'><strong>" + feature.properties.name + '</strong><br/>' + feature.properties.total + ' vélos</p>');
+
+        return circle;
+      }
+    }).addTo(map);
+     
+});
+  });
+map.fitBounds(bounds);
+
+  </script>
+</body>
+</html>
