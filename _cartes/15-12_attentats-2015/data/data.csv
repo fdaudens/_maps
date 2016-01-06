@@ -1,0 +1,70 @@
+index,yr,mo,date,latlon,latitude,longitude,city,pays,description,killed,injured,kidnapped,EIouAL,nature
+1,2015,1,2015-01-07,48.856614 2.3522219,48.856614,2.3522219,Paris,France,Attaque contre la publication satirique « Charlie Hebdo »,12,11,,AL,Inspiré
+2,2015,1,2015-01-08,13.0951221 13.818728,13.0951221,13.818728,Baga,Nigeria,Attaque de Boko Haram contre les villes de Baga et Doron Baga,200,,2000,EI,Dirigé
+3,2015,1,2015-01-09,48.856614 2.3522219,48.856614,2.3522219,Paris,France,Attaque contre une épicerie fréquentée par la communauté juive.,4,,,EI,Inspiré
+4,2015,1,2015-01-12,32.888054 13.191211,32.888054,13.191211,Tripoli,Libye,L'État islamique en Libye dit avoir pris en otage 21 chrétiens égyptiens.,,0,21,EI,Dirigé
+5,2015,1,2015-01-23,34.259635 36.417656,34.259635,36.417656,Ras Baalbek,Liban,L'État islamique s'en prend à une position militaire au Liban.,,0,0,EI,Dirigé
+6,2015,1,2015-01-27,32.888199 13.190954,32.888199,13.190954,Tripoli,Libye,L'État islamique en Libye s'attaque à un hôtel de luxe de la capitale libyenne.,10,0,0,EI,Dirigé
+7,2015,1,2015-01-29,30.145793 33.806689,30.145793,33.806689,Arish et Rafah,Égypte,Série d'attaques à plusieurs installations militaires,44,0,0,EI,Dirigé
+8,2015,2,2015-02-03,29.823072 17.284069,29.823072,17.284069,Mabrouk,Libye,"Des miliants du goupe État islamique aurait tué 12 personnes, dont 4 étrangers, sur un site pétrolier.",12,0,0,EI,Dirigé
+9,2015,2,2015-02-14,55.678527 12.580237,55.678527,12.580237,Copenhagen,Danemark,"Un homme attaque un centre culturel, puis une synagogue.",2,5,0,EI,Inspiré
+10,2015,2,2015-02-15,32.843782 12.171554,32.843782,12.171554,(Inconnue),Libye,L'État islamique publie une vidéo montrant l'exécution de chrétiens égyptiens qui auraient été enlevés un mois plus tôt.,21,0,0,EI,Dirigé
+11,2015,2,2015-02-20,32.760095 22.242240,32.760095,22.242240,Qubba,Libye,Des militants disant être affililé à l'État islamique revendiquent trois attentats à la voiture piégées.,38,40,0,EI,Dirigé
+12,2015,3,2015-03-07,12.6500 8.0000,12.65000,8.0000,Bamako,Mali,Une fusillade dans un bar de la capitale fait cinq morts.,5,0,0,AL,Dirigé
+13,2015,3,2015-03-18,36.804639 10.167739,36.804639,10.167739,Tunis,Tunisie,L'État islamique revendique l'attaque d'un musée de Tunis.,22,0,0,EI,Dirigé
+14,2015,3,2015-03-20,15.360861 44.208705,15.360861,44.208705,Sanaa,Yémen,Un groupe affilié à l'État islamique revendique des attentats-suicides dans des mosquées.,130,0,0,EI,Dirigé
+15,2015,4,2015-04-02,-0.4532293 39.6460988,-0.4532293,39.6460988,Garissa,Kenya,Quatre combattants islamistes somaliens prennent d'assaut l’université de Garissa.,148,,,AL,Dirigé
+16,2015,4,2015-04-02,30.704752 33.453469,30.704752,33.453469,Sanaï du Nord,Égypte,Des militants affiliés à l'État islamique tuent 13 personnes lors d'attaques simultanées à la voiture piégées.,13,19,0,EI,Dirigé
+17,2015,4,2015-04-04,32.440340 67.464164,32.440340,67.464164,Province de Zabul,Afghanistan,Le vice-président de l'Afghanistan a accusé l'État islamique d'avoir kidnappé 31 civils.,0,0,31,EI,Dirigé
+18,2015,4,2015-04-05,32.376529 15.092938,32.376529,15.092938,Misurata,Libye,L'État islamique tue au moins quatre personnes lors d'une attaque à un point de contrôle.,4,20,0,EI,Dirigé
+19,2015,4,2015-04-08,24.661582 46.717598,24.661582,46.717598,Riyad,Arabie Saoudite,Un homme armé tire sur une patrouille policière. Deux agents sont tués.,2,0,0,EI,Dirigé
+20,2015,4,2015-04-12,32.888199 13.190954,32.888199,13.190954,Tripoli,Libye,Un groupe affilié à l'État islamique revendique l'attaque de l'ambassade de la Corée du Sud dans la capitale libyenne.,2,1,0,EI,Dirigé
+21,2015,4,2015-04-12,29.592574 33.779387,29.592574,33.779387,Sinaï,Égypte,Des militants de l'État islamique tuent au moins 12 personnes dans trois attaques différentes envers des militaires.,12,0,0,EI,Dirigé
+22,2015,4,2015-04-12,32.888199 13.190954,32.888199,13.190954,Tripoli,Libye,Un groupe affilié à l'EI revendique l'attaque à l'ambassade du Maroc dans la capitale libyenne.,0,0,0,EI,Dirigé
+23,2015,4,2015-04-19,48.792716 2.359279,48.792716,2.359279,Villejuif,France,"Une femme tuée à Villejuif, en France, par un homme qui projetait d’attaquer une église.",1,0,0,EI,Inspiré
+24,2015,4,2015-04-19,32.843782 12.171554,32.843782,12.171554,(Inconnue),Libye,L'État islamique publie une vidéo montrant l'exécution de plusieurs chrétiens d'Éthiopie.,30,0,0,EI,Dirigé
+25,2015,4,2015-04-30,14.613792 47.105573,14.613792,47.105573,Shabwa,Yémen,Un groupe affilié à l'État islamique publie une vidéo montrant l'exécution de 15 soldats yéminites.,15,0,0,EI,Dirigé
+26,2015,5,2015-05-03,32.913894 -96.637558,32.913894,-96.637558,Garland,États-Unis,Deux hommes ouvrent le feu lors d'un concours de caricatures de prophère Mahomet. ,,0,0,EI,Inspiré
+27,2015,5,2015-05-18,36.8064948 10.1815316,36.8064948,10.1815316,Tunis,Tunisie,"Deux hommes armés abattent 22 personnes au musée national du Bardo, à Tunis.",22,,,EI,Dirigé
+28,2015,5,2015-05-22,26.570050 49.989073,26.570050,49.989073,Al Qudaih,Arabie saoudite,Une attaque-suicide dans une mosquée chiite est revendiquée par l'État islamique.,21,120,0,EI,Dirigé
+29,2015,5,2015-05-22,15.367232 44.189253,15.367232,44.189253,Sanaa,Yémen,L'État islamique revendique une attaque à bombe dans une mosquée chiite de Sanaa.,,13,0,EI,Dirigé
+30,2015,5,2015-05-29,26.423309 50.063227,26.423309,50.063227,Dammam,Arabie saoudite,"Attentat-suicide près de l'entrée d'une mosquée chiite de Dammam, en Arabie saoudite.",3,0,0,EI,Dirigé
+31,2015,5,2015-05-31,32.376529 15.092938,32.376529,15.092938,Misurata,Libye,Une attaque d'un groupe affilié à l'État islamique tue au moins 4 militaires à un contrôle routier vers Tripoli.,4,0,0,EI,Dirigé
+32,2015,6,2015-06-01,32.5597614 41.9196471,32.5597614,41.9196471,Anbar,Irak,"Un attentat-suicide contre un poste de police dans la province d’Anbar, en Irak fait 41 morts.",41,,,EI,Dirigé
+33,2015,6,2015-06-03,34.425207 70.459658,34.425207,70.459658,Jalalabad,Afghanistan,Le groupe État islamique est soupçonné d'avoir décapité 10 Talibans. ,10,0,0,EI,Dirigé
+34,2015,6,2015-06-05,37.924683 40.205421,37.924683,40.205421,Diyarbakir,Turquie,L'explosion lors d'un rassemblement politique dans la ville de Diyarbakir fait 2 morts et plus d'une centaine de blessés. Les autorités attribuent cette attaque à l'État islamique.,2,100,0,EI,Dirigé
+35,2015,6,2015-06-09,30.145793 33.806690,30.145793,33.806690,Sinaï,Égypte,Un groupe affilié à l'EI revendique un tir de roquette vers une base militaire utiliser par la force internationale de maintien de la paix. ,0,0,0,EI,Dirigé
+36,2015,6,2015-06-17,15.287719 44.176594,15.287719,44.176594,Sanaa,Yémen,Un groupe associé à l'EI revendique une série d'attaques à la voiture piégée.,,0,0,EI,Dirigé
+37,2015,6,2015-06-26,35.825603 10.608395,35.825603,10.608395,Sousse,Tunisie,"À Sousse, un homme tue 38 personnes, en majorité des touristes, avec une arme cachée dans un parasol. ",38,,,EI,Dirigé
+38,2015,6,2015-06-26,49.847066 3.2874,49.847066,355808,Saint-Quentin,France,"Un directeur d’usine de Saint-Quentin, en France, est décapité par un de ses employés.",1,0,0,EI,Inspiré
+39,2015,6,2015-06-26,29.375897 47.978259,29.375897,47.978259,Koweït,Koweït,Une attaque-suicide vise l'une des plus importantes mosquées chiites de la ville de Koweït lors de la prière du vendredi. ,27,222,0,EI,Dirigé
+40,2015,6,2015-06-26,35.830110 10.619938,35.830110,10.619938,Sousse,Tunisie,Un homme déguisé en vacancier tue au moins 38 personnes dans un complexe hôtelier en bord de mer.,38,0,0,EI,Dirigé
+41,2015,7,2015-07-01,31.070262 34.057982,31.070262,34.057982,Sheikh Zuweid,Égypte,Des militants associés à l'État islamique tuent des douzaines de soldats lors d'attaques simultanées visant des points de contrôle et d'autres installations de sécurité.,50,0,0,EI,Dirigé
+42,2015,7,2015-07-11,30.048419 31.233917,30.048419,31.233917,Le Caire,Égypte,L'État islamique revendique l'explosion à l'extérieur du Consulat italien au centre-ville du Caire.,1,0,0,EI,Dirigé
+43,2015,7,2015-07-16,31.070262 34.057983,31.070262,34.057983,Sinaï,Égypte,Un groupe associé à l'EI revendique ce qui serait une première attaque navale.,0,0,0,EI,Dirigé
+44,2015,7,2015-07-20,36.979255 38.425586,36.979255,38.425586,Suruç,Turquie,Une attaque-suicide vise l'un des plus importantes mosquée chiite de la ville de Koweït lors de la prière du vendredi. ,32,0,0,EI,Inspiré
+45,2015,8,2015-08-07,18.812278 42.525899,18.812278,42.525899,Asir,Arabie Saoudite,"L'EI revendique l'attaque-suicide dans une mosquée qui a tué au moins 15 personnes, dont 12 policiers.",15,0,0,EI,Dirigé
+46,2015,8,2015-08-12,30.048419 31.233917,30.048419,31.233917,Le Caire,Égypte,Le groupe armé État islamique dit avoir décapité un expatrié croate.,1,0,0,EI,Dirigé
+47,2015,8,2015-08-13,33.3849668 44.4539055,33.3849668,44.4539055,Bagdad,Irak,Un attentat-suicide dans un marché de Bagdad fait 70 morts.,70,82,0,EI,Dirigé
+48,2015,8,2015-08-20,30.048419 31.233917,30.048419,31.233917,Le Caire,Égypte,Un groupe affilié à l'EI revendique l'explosion dans une agence de sécurité. ,0,29,0,EI,Dirigé
+49,2015,8,2015-08-21,50.2892587 2.7328427,50.2892587,2.7328427,Arras,France,Plusieurs personnes maîtrisent un homme armé dans un train reliant Amsterdam à Paris.,0,0,0,EI,Inspiré
+50,2015,8,2015-08-26,31.070262 34.057983,31.070262,34.057983,Sinai,Égypte,Un groupe affilié à l'État islamique revendique l'attaque envers deux policiers. ,2,0,0,EI,Dirigé
+51,2015,9,2015-09-02,15.287719 44.176594,15.287719,44.176594,Sanaa,Yémen,Un groupe affilié à l'EI revendique deux attaques à la bombe dans une mosquée qui ont tué au moins 20 personnes.,20,0,0,EI,Dirigé
+52,2015,9,2015-09-18,32.888054 13.191211,32.888054,13.191211,Tripoli,Libye,Des militants de l'État islamique attaquent une prison qui se trouve sur une base militaire de Tripoli.,3,0,0,EI,Dirigé
+53,2015,9,2015-09-24,15.287719 44.176594,15.287719,44.176594,Sanaa,Yémen,Au moins 25 personnes sont tuées lorsque deux bombes explosent à l'extérieur d'une mosquée durant la prière.,25,0,0,EI,Dirigé
+54,2015,9,2015-09-28,23.812662 90.410741,23.812662,90.410741,Dhaka,Bangladesh,L'EI revendique la mort par balle d'un travailleur humanitaire italien. ,1,0,0,EI,Dirigé
+55,2015,10,2015-10-03,23.812662 90.410741,23.812662,90.410741,Dhaka,Bangladesh,L'EI revendique la mort par balle d'une Japonais.,1,0,0,EI,Dirigé
+56,2015,10,2015-10-06,12.781183 45.021504,12.781183,45.021504,Aden,Yémen,Une série d'explosions dans les deux plus grandes villes du Yémon font au moins 25 morts.,25,0,0,EI,Dirigé
+57,2015,10,2015-10-10,39.930678 32.852024,39.930678,32.852024,Ankara,Turquie,"Deux explosions font 102 morts lors d’une manifestation politique à Ankara, capitale de la Turquie. L’État islamique est soupçonné.",102,0,0,EI,Dirigé
+58,2015,10,2015-10-24,23.812662 90.410741,23.812662,90.410741,Dhaka,Bangladesh,L'État islamique revendique les explosions qui ont fait 1 mort et des douzaines de blessés lors d'une célébration dans une mosquée chiite.,1,,0,EI,Dirigé
+59,2015,10,2015-10-31,31.070262 34.057983,31.070262,34.057983,Sinaï,Égypte,"Un avion de la compagnie russe Metrojet explose au dessus du Sinaï en Égypte, tuant les 224 occupants de l'avion.",224,0,0,EI,Dirigé
+60,2015,11,2015-11-04,23.812662 90.410741,23.812662,90.410741,Dhaka,Bangladesh,L'État islamique revendique une attaque envers deux policiers.,1,1,0,EI,Dirigé
+61,2015,11,2015-11-04,31.070262 34.057983,31.070262,34.057983,Sinaï,Égypte,Un groupe affilié à l'État islamique revendique un attentat-suicide qui a tué au moins trois policiers,3,0,0,EI,Dirigé
+62,2015,11,2015-11-12,33.888842 35.495436,33.888842,35.495436,Beyrouth,Liban,"Un double attentat-suicide revendiqué par l’État islamique fait 44 morts dans la banlieue sud de Beyrouth, fief du Hezbollah.",44,0,0,EI,Dirigé
+63,2015,11,2015-11-13,48.857051 2.339331,48.857051,2.339331,Paris,France,L’État islamique revendique les attentats de Paris du 13 novembre qui font 130 morts. ,130,0,0,EI,Dirigé
+64,2015,11,2015-11-20,12.6500 8.0000,1680452,36739,Bamako,Mali,"À Bamako, des djihadistes prennent 170 personnes en otages à l'hôtel Radisson Blu.",20,,,AL,Dirigé
+65,2015,11,2015-11-24,36.8064948 10.1815316,36.8064948,10.1815316,Tunis,Tunisie,Un attentat à la bombe visant un autobus de la garde présidentielle fait 12 morts et une quinzaine de blessés à Tunis.,12,15,0,EI,Dirigé
+66,2015,11,2015-11-24,31.070262 34.057983,31.070262,34.057983,Sinaï,Égypte,Des militants de l'EI attaquent un hôtel dans le nord de la péninsule du Sinaï.,7,0,0,EI,Dirigé
+67,2015,11,2015-11-26,23.812662 90.410741,23.812662,90.410741,Dhaka,Bangladesh,L'État islamique revendique l'attaque d'une mosquée chiite durant la prière.,1,3,0,EI,Dirigé
+68,2015,12,2015-12-02,34.109353 -117.294989,34.109353,-117.294989,San Bernardino,États-Unis,"Un couple tue 14 personnes dans un centre pour personnes handicapées à San Bernardino, en Californie. Ils auraient été inspirés par le groupe armé État islamique.",12,0,0,EI,Inspiré
+69,2015,12,2015-12-10,36.658611 40.371389,36.658611,40.371389,Tall Tamer,Syrie,Un triple attentat au camion piégé est revendiqué par l'État islamique.,55,80,0,EI,Dirigé
