@@ -70,7 +70,7 @@ var tip = d3.tip()
                .style("opacity", .5)
                               .on('mouseover', function(d, i) {
                  tip.show(d,i)
-                .style("top", (80)+"px")
+                .style("top", (100)+"px")
                 .style("left",(0)+"px");
         })
               .on('mouseout',  function(d, i) {
@@ -96,7 +96,7 @@ var tip = d3.tip()
                .style("opacity", .8)
                .on('mouseover', function(d, i) {
                  tip.show(d,i)
-                .style("top", (80)+"px")
+                .style("top", (100)+"px")
                 .style("left",(0)+"px");
         })
               .on('mouseout',  function(d, i) {

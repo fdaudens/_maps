@@ -1,0 +1,91 @@
+/* Webfont:  Rubrik-Light */
+@font-face {
+    font-family:'RubrikLt';
+  font-style:normal;
+  font-weight:400;
+  src:  url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.eot);
+  src:  url(http://www.r-c.ca/_font/Rubrik-Light.eot?#iefix) format("embedded-opentype"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.woff) format("woff"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.svg#Rubrik-Light) format("svg"),
+      url(http://www.r-c.ca/_font/Rubrik/Rubrik-Light.ttf) format("truetype")
+}
+@font-face {
+    font-family: 'RubrikMd';
+    font-style: normal;
+    font-weight: normal;
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.eot'); /* IE9 Compat Modes */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.eot?#iefix'); /* IE6-IE8 */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.woff'); /* Modern Browsers */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.svg#Rubrik-Medium'); /* Legacy iOS */
+    src: url('http://www.r-c.ca/_font/Rubrik/Rubrik-Medium.ttf'); /* Safari, Android, iOS */
+}
+
+
+.background {
+  fill: none;
+  pointer-events: all;
+}
+  #figure {
+    background-color: #fff;
+    width: 100%;
+  }
+
+  #carte {
+    width: 100%;
+    height: 100%;
+  }
+  #legende {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+  	right: 10px;
+  	bottom: 5px;
+    padding-top: 10px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;  
+  }    
+
+  h1 {
+    font-size: 20px;
+    margin: 10px;
+    font-family: RubrikLT;
+  }
+
+  p {
+    font-size: 12px;
+    margin: 11px 0 0 0;
+    font-family: RubrikLT;
+  }
+  .data{
+    font-family: RubrikMd;
+    font-size: 14px;
+    font-weight: bold;
+}
+.pays {
+  fill: none;
+  stroke: #bebebe;
+  stroke-width: .5;  
+/* stroke-linejoin: round;
+*/}
+.pays.active {
+  fill: orange;
+}
+.source {
+    font-size: 10px;
+}
+  .d3-tip { 
+    line-height: 1;
+    font-weight: normal;
+    font-family: Arial;
+    padding: 5px;
+    background-color: rgba(255,255,255,0.5);
+    color: black;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-left: 10px;
+    margin-top: 10px;
+    width:200px;
+    border: 1px solid #ccc;
+        line-height: 80%;
+}
